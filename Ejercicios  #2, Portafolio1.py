@@ -56,10 +56,16 @@ Salidas: Largo de un numero flotante
 Restricciones: El numero debe de ser un flotante mayor a cero
 """
 def contarDigitosFlotantes(num):
-    if(isinstance(num,float) and num>0):
-        num=(num%10**10*100000)
-        num=int(num)
-        return contarFlotantesAux(num)
+    if(isinstance(num,float) ):
+        if num<0:
+            resultado=num*-1
+            resultado=resultado%10**10*100000
+            resultado=int(resultado)
+            return pasarNegativo(resultado)
+        else:
+            num=(num%10**10*100000)
+            num=int(num)
+            return contarFlotantesAux(num)
     else:
         return "El dígito que ingresó debe ser un flotante positivo"
 
@@ -70,6 +76,14 @@ def contarFlotantesAux(num):
         return 1
     else:
         return 1+contarFlotantesAux(num//10)
+
+def pasarNegativo(resultado):
+    if resultado<10:
+        return 1
+    elif resultado%10==0:
+        return contarFlotantesAux(resultado//10)
+    else:
+        1+contarFlotantesAux(resultado//10)
     
 
 
@@ -84,8 +98,10 @@ Restricciones: "num" y "i" deben ser enteros positivos
 """
 def indiceNumero(num,i):
     if(isinstance(num,int)and num >= 0):
-        if(isinstance(i,int)):
+        if(isinstance(i,int)and i >= 0):
             return indiceNumeroAux(num,i)
+        else:
+            return "El indice debe ser un numero entero positivo"
     else:
         return "digite un numero entero positivo"
 
@@ -107,6 +123,10 @@ def cortarNumero(num,exponente1, exponente2):
         if(isinstance(exponente1,int)):
             if (isinstance(exponente2,int)):
                 return cortarNumeroAux(num,exponente1, exponente2)
+            else:
+                return "exponente2 debe ser un numero entero positivo"
+        else:
+             return "exponente1 un numero entero positivo"
     else:
         return "digite un numero entero positivo"
 
@@ -114,6 +134,8 @@ def cortarNumeroAux(num,exp1,exp2):
     if(exp1 >= 0) and (exp2 >= 0):
         num=str(num)
         print(int(num[exp1])*10+(int(num[exp2])))
+    else:
+        return "Error"
 
 
 
